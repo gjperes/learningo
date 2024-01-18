@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- websockets.html -->
+    <input id="input" type="text"/>
+    <button onclick="send()">Send</button>
+    <pre id="output"></pre>
+</body>
+<script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const socket = new WebSocket("ws://localhost:42069/echo");
+
+    socket.onopen = () => output.innerHTML += "Status: Connected\n";
+
+    socket.onmessage = (event) => output.innerHTML += "Server: " + event.data + "\n";
+
+    function send() {
+        socket.send(input.value);
+        input.value = "";
+    }
+</script>
+</html>
